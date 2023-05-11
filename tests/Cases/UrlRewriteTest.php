@@ -29,6 +29,11 @@ class UrlRewriteTest extends TestCase
                         '/matchPath',
                     ],
                     [
+                        '/matchPathFoo/ok',
+                        true,
+                        '/rewrite/matchPathFoo/ok'
+                    ],
+                    [
                         '/matchPath/no-exact',
                     ],
                     [
@@ -36,8 +41,9 @@ class UrlRewriteTest extends TestCase
                         false
                     ]
                 ],
-                'want' => function (RequestInterface $request): bool {
-                    return str_starts_with($request->getUri()->getPath(), '/rewrite/matchPath');
+                'want' => function (RequestInterface $request, array $arguments = []): bool {
+                    $want = empty($arguments['want']) ? '/rewrite/matchPath' : $arguments['want'];
+                    return str_starts_with($request->getUri()->getPath(), $want);
                 },
             ],
             [
@@ -304,11 +310,14 @@ class UrlRewriteTest extends TestCase
 
     protected function testRewriteCase(UrlRewriteRule $rule, string $name, array $gots, $want): void
     {
+        $rewrite = new UrlRewrite([$rule]);
+
         foreach ($gots as $got) {
-            $rewrite = new UrlRewrite([$rule]);
             if (count($got) === 1) {
                 $got[] = true;
             }
+
+            $customWant = $got[2] ?? null;
 
             [$got, $value] = $got;
 
@@ -320,6 +329,9 @@ class UrlRewriteTest extends TestCase
             }
 
             $resultReq = $rewrite->rewrite($req, $variables);
+            if (isset($customWant)) {
+                $variables['want'] = $customWant;
+            }
 
             $this->setName($name);
             if (is_callable($want)) {
@@ -338,6 +350,7 @@ class UrlRewriteTest extends TestCase
 
             unset($req, $resultReq);
         }
+        unset($rewrite);
     }
 
     protected function b2s(bool $ok): string

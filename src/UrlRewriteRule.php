@@ -40,6 +40,8 @@ class UrlRewriteRule
     const REG_MATCH_HOST = 3;
     const MATCH_METHOD = 4;
 
+    const X_REAL_PATH = 'x-real-path';
+
     /**
      * @var array<string, array>|null
      */
@@ -82,7 +84,7 @@ class UrlRewriteRule
                 $uri = $uri->withPath($path);
             }
 
-            return $request->withUri($uri);
+            return $request->withHeader(self::X_REAL_PATH, $request->getUri()->getPath())->withUri($uri);
         });
 
         return $this;
