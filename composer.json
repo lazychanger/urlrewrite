@@ -9,7 +9,7 @@
     "urlrewrite",
     "rewrite",
     "http-message",
-    "psr/http-message"
+    "psr"
   ],
   "authors": [
     {
