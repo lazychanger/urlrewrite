@@ -1,0 +1,56 @@
+{
+  "name": "lazychanger/urlrewrite",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://github.com/lazychanger/hyperf-helper-urlrewrite",
+  "keywords": [
+    "php",
+    "hyperf",
+    "urlrewrite",
+    "rewrite"
+  ],
+  "authors": [
+    {
+      "email": "chengliang.duan@gmail.com",
+      "name": "ChengLiang Duan",
+      "homepage": "https://github.com/lazychanger"
+    }
+  ],
+  "description": "hyperf helper url rewrite module",
+  "autoload": {
+    "psr-4": {
+      "LazyChanger\\UrlRewrite\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LazyChangerTest\\UrlRewrite\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=8.0"
+  },
+  "require-dev": {
+    "hyperf/http-server": "^3.0",
+    "mockery/mockery": "^1.5",
+    "nikic/fast-route": "^1.3",
+    "phpstan/phpstan": "^1.0",
+    "phpunit/phpunit": "^9.5",
+    "swoole/ide-helper": "^4.5"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "scripts": {
+    "test": "phpunit -c phpunit.xml --colors=always",
+    "analyse": "phpstan analyse --memory-limit 1024M -l 0 ./src"
+  },
+  "extra": {
+    "hyperf": {
+      "config": "LazyChanger\\Dependency\\ConfigProvider"
+    }
+  }
+}
