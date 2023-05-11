@@ -2,12 +2,14 @@
   "name": "lazychanger/urlrewrite",
   "type": "library",
   "license": "MIT",
-  "homepage": "https://github.com/lazychanger/hyperf-helper-urlrewrite",
+  "homepage": "https://github.com/lazychanger/urlrewrite",
   "keywords": [
     "php",
     "hyperf",
     "urlrewrite",
-    "rewrite"
+    "rewrite",
+    "http-message",
+    "psr/http-message"
   ],
   "authors": [
     {
@@ -16,7 +18,7 @@
       "homepage": "https://github.com/lazychanger"
     }
   ],
-  "description": "hyperf helper url rewrite module",
+  "description": "Easy and quickly add url rewrite with psr/http-message",
   "autoload": {
     "psr-4": {
       "LazyChanger\\UrlRewrite\\": "src/"
@@ -28,7 +30,8 @@
     }
   },
   "require": {
-    "php": ">=8.0"
+    "php": ">=8.0",
+    "psr/http-message": "^1.0"
   },
   "require-dev": {
     "hyperf/http-server": "^3.0",
@@ -50,7 +53,7 @@
   },
   "extra": {
     "hyperf": {
-      "config": "LazyChanger\\Dependency\\ConfigProvider"
+      "config": "LazyChanger\\UrlRewrite\\ConfigProvider"
     }
   }
 }
