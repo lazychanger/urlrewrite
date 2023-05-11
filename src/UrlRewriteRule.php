@@ -63,11 +63,11 @@ class UrlRewriteRule
      * @param string $path
      * @return $this
      */
-    public function rewrite(string $path): self
+    public function rewriteTo(string $path): self
     {
         $path = '/' . ltrim($path, '/');
 
-        $this->rewriteFn(function (RequestInterface $request, array $variables = []) use (
+        $this->rewriteToFn(function (RequestInterface $request, array $variables = []) use (
             $path,
         ): RequestInterface {
 
@@ -92,7 +92,7 @@ class UrlRewriteRule
      * @param callable $callback
      * @return $this
      */
-    public function rewriteFn(callable $callback): self
+    public function rewriteToFn(callable $callback): self
     {
         $this->rewriteHandler = $callback;
         return $this;

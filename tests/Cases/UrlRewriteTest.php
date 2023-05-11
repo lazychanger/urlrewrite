@@ -23,7 +23,7 @@ class UrlRewriteTest extends TestCase
         return [
             [
                 'name' => 'matchPath',
-                'rule' => UrlRewriteRule::matchPath('/matchPath')->rewrite('/rewrite/matchPath'),
+                'rule' => UrlRewriteRule::matchPath('/matchPath')->rewriteTo('/rewrite/matchPath'),
                 'got' => [
                     [
                         '/matchPath',
@@ -42,7 +42,7 @@ class UrlRewriteTest extends TestCase
             ],
             [
                 'name' => 'matchPath-exact',
-                'rule' => UrlRewriteRule::matchPath('/matchPath/exact', true)->rewrite('/rewrite/matchPath/exact'),
+                'rule' => UrlRewriteRule::matchPath('/matchPath/exact', true)->rewriteTo('/rewrite/matchPath/exact'),
                 'got' => [
                     [
                         '/matchPath/exact'
@@ -56,7 +56,7 @@ class UrlRewriteTest extends TestCase
             ],
             [
                 'name' => 'regMatchPath',
-                'rule' => UrlRewriteRule::regMatchPath('/regMatchPath/{id:[0-9]+}')->rewrite('/rewrite/regMatchPath/{id}'),
+                'rule' => UrlRewriteRule::regMatchPath('/regMatchPath/{id:[0-9]+}')->rewriteTo('/rewrite/regMatchPath/{id}'),
                 'want' => function (RequestInterface $request, array $arguments): bool {
                     $id = $arguments['id'] ?? 0;
                     return (string)$request->getUri() === sprintf('/rewrite/regMatchPath/%d',
@@ -78,7 +78,7 @@ class UrlRewriteTest extends TestCase
             ],
             [
                 'name' => 'matchHost',
-                'rule' => UrlRewriteRule::matchHost('example.com')->rewrite('/rewrite/matchHost'),
+                'rule' => UrlRewriteRule::matchHost('example.com')->rewriteTo('/rewrite/matchHost'),
                 'want' => '/rewrite/matchHost',
                 'got' => [
                     [
@@ -102,7 +102,7 @@ class UrlRewriteTest extends TestCase
             ],
             [
                 'name' => 'regMatchHost',
-                'rule' => UrlRewriteRule::regMatchHost('{subdomain:[a-zA-Z0-9]+}.example1.com')->rewrite('/rewrite/regMatchHost/{subdomain}'),
+                'rule' => UrlRewriteRule::regMatchHost('{subdomain:[a-zA-Z0-9]+}.example1.com')->rewriteTo('/rewrite/regMatchHost/{subdomain}'),
                 'got' => [
                     [
                         function (RequestInterface $request): RequestInterface {
@@ -129,7 +129,7 @@ class UrlRewriteTest extends TestCase
             ],
             [
                 'name' => 'regMatchHost2',
-                'rule' => UrlRewriteRule::regMatchHost('{subdomain:[a-zA-Z0-9]+}.example2.com')->rewriteFn(function (
+                'rule' => UrlRewriteRule::regMatchHost('{subdomain:[a-zA-Z0-9]+}.example2.com')->rewriteToFn(function (
                     RequestInterface $request,
                     array $arguments,
                 ): RequestInterface {
@@ -171,7 +171,7 @@ class UrlRewriteTest extends TestCase
             ],
             [
                 'name' => 'matchPathAndHost',
-                'rule' => UrlRewriteRule::matchHost('example3.com')->matchPath('/matchPath')->rewrite('/rewrite/matchPathAndHost'),
+                'rule' => UrlRewriteRule::matchHost('example3.com')->matchPath('/matchPath')->rewriteTo('/rewrite/matchPathAndHost'),
                 'got' => [
                     [
                         function (RequestInterface $request): RequestInterface {
@@ -204,7 +204,7 @@ class UrlRewriteTest extends TestCase
             ],
             [
                 'name' => 'regMatchPathAndHost',
-                'rule' => UrlRewriteRule::regMatchHost('{subdomain:[a-zA-Z0-9]+}.example4.com')->regMatchPath('/matchPath/{id:[0-9]+}')->rewriteFn(function (
+                'rule' => UrlRewriteRule::regMatchHost('{subdomain:[a-zA-Z0-9]+}.example4.com')->regMatchPath('/matchPath/{id:[0-9]+}')->rewriteToFn(function (
                     RequestInterface $request,
                     array $arguments,
                 ): RequestInterface {
@@ -261,7 +261,7 @@ class UrlRewriteTest extends TestCase
             ],
             [
                 'name' => 'matchMethodAndHost',
-                'rule' => UrlRewriteRule::matchMethod('HEAD')->regMatchHost('{subdomain:[0-9a-zA-Z]+}.example7.com')->rewrite('/rewrite/matchMethodAndHost/{subdomain}'),
+                'rule' => UrlRewriteRule::matchMethod('HEAD')->regMatchHost('{subdomain:[0-9a-zA-Z]+}.example7.com')->rewriteTo('/rewrite/matchMethodAndHost/{subdomain}'),
                 'got' => [
                     [
                         function (RequestInterface $request): RequestInterface {
