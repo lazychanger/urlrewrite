@@ -122,7 +122,7 @@ class UrlRewriteRule
 
     public static function __callStatic(string $name, array $arguments)
     {
-        return call_user_func_array([new static(), $name], $arguments);
+        return call_user_func_array([new self(), $name], $arguments);
     }
 
     public function __call(string $name, array $arguments)
