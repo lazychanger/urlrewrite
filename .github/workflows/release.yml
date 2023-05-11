@@ -20,8 +20,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          name: Release ${{ github.ref }}
           draft: false
           prerelease: false
           generateReleaseNotes: true
-          artifacts: "LICENSE,publish/*.php,src/*.php,composer.json,README.md"
+          artifacts: "LICENSE,publish,src,composer.json,README.md"
